@@ -6,26 +6,34 @@ Written in C++, and exported for C use as well, it was designed with performance
 
 ## How to Build
 
+
 ### Simply -- Build with Current Build Script (Clang Compiler is required)
 
+
 #### Required Dependencies
+
 
 Clang++, Python, Ninja, and CMake (>= 3.20)
 
 #### Command
 
+
 Simply run `python build.py` for the release build or `python build.py -b debug` for the debug build.
 
 ### With CMake -- Run from within project root
 
+
 #### Required Dependencies
+
 CMake and a C++ compiler
 
 `cmake -S . -B build`
 `cd build`
 `cmake --build . --parallel`
 
+
 ### What are the zig variables in the CMakeLists.txt file?
+
 
 [Zig](https://ziglang.org/) is a systems programming language, coupled with the ability to cross compile C/C++ using LLVM(clang/clang++).
 
@@ -45,6 +53,7 @@ and a x86_64 Windows library will be compiled from any host.
 
 The same can be said of MacOS targets, other Linux targets with different architectures or glibc versions, and other Windows targets.
 
+
 #### Note for mobile targets
 
 iOS and Android can be targeted as well (and I'm assuming WASM although I haven't tried), but the mobile targets need additional resources (iPhone SDK for iOS and NDK for the needed Android version) for this to work. This hasn't been tested for this library.
@@ -54,6 +63,7 @@ Zig must be installed (see the zig link above) for this capability.
 Once zig is installed, `zig targets` can be run to see a list of all the support targets/architectures.
 
 The result of this list is large, so grep (or any equivalent) is recommended for desired targets.
+
 
 #### Note for cross compilation
 
