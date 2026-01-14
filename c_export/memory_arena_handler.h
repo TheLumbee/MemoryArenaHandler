@@ -5,15 +5,28 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#if defined(_WIN32) || defined(__CYGWIN__)
+#ifdef ARENA_BUILD_LIB
+#define ARENA_API __declspec(dllexport)
+#else
+#define ARENA_API __declspec(dllimport)
+#endif
+#elif defined(__GNUC__) || defined(__clang__)
+// GCC/Clang (Linux/Mac/BSD)
+#define ARENA_API __attribute__((visibility("default")))
+#else
+// Fallback for unknown compilers
+#define ARENA_API
+#endif
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-	// Opaque handle to the C++ ArenaHandler class
+	// Opaque handle
 	typedef struct CArenaHandler CArenaHandler;
 
-	// Mirror of the C++ ErrorCode enum
 	typedef enum
 	{
 		ARENA_SUCCESS = 0,
@@ -21,36 +34,17 @@ extern "C"
 		ARENA_INSUFFICIENT_RESOURCE = 2
 	} ArenaErrorCode;
 
-	/**
-	 * @brief Creates a new ArenaHandler instance.
-	 * @return Pointer to the handler, or NULL on allocation failure.
-	 */
-	CArenaHandler* arena_create(void);
+	// Apply the macro to every function declaration
 
-	/**
-	 * @brief Destroys the ArenaHandler and frees all managed memory.
-	 */
-	void arena_destroy(CArenaHandler* handler);
+	ARENA_API CArenaHandler* arena_create(void);
 
-	/**
-	 * @brief Requests memory from the arena.
-	 * * @param handler The arena handler instance.
-	 * @param size Number of bytes to allocate.
-	 * @param alignment Alignment in bytes.
-	 * @param use_default_allocation If true, allocates larger blocks by default.
-	 * @return Pointer to the allocated memory, or NULL on failure.
-	 */
-	void* arena_request_memory(CArenaHandler* handler, size_t size, uint8_t alignment,
-		bool use_default_allocation);
+	ARENA_API void arena_destroy(CArenaHandler* handler);
 
-	/**
-	 * @brief Frees memory back to the arena (specifically to the free list).
-	 * * @param handler The arena handler instance.
-	 * @param ptr Pointer to the memory to free.
-	 * @param size Size of the memory block being freed.
-	 * @return ArenaErrorCode indicating success or failure.
-	 */
-	ArenaErrorCode arena_free(CArenaHandler* handler, void* ptr, size_t size);
+	ARENA_API void* arena_alloc(CArenaHandler* handler, size_t size,
+		uint8_t alignment, bool use_default_allocation);
+
+	ARENA_API ArenaErrorCode arena_free(
+		CArenaHandler* handler, void* ptr, size_t size);
 
 #ifdef __cplusplus
 }
