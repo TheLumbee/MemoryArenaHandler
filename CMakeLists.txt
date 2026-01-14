@@ -10,10 +10,7 @@ if (DEFINED TARGET)
 	set(CMAKE_SYSTEM_NAME ${SYSTEM})
 endif()
 
-set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-add_compile_options(-Wall -Wextra -Wpedantic)
+add_compile_options(-Wall -Wextra -Wpedantic -fno-exceptions)
 if (NOT DEFINED TARGET)
 	add_compile_options(-stdlib=libc++)
 endif()
@@ -53,3 +50,11 @@ FetchContent_MakeAvailable(
 enable_testing()
 
 add_subdirectory(src)
+
+add_library(memory_arena_handler_static STATIC
+	"src/memory_arena_handler.cpp"
+)
+
+add_library(memory_arena_handler_shared SHARED
+	"src/memory_arena_handler.cpp"
+)
