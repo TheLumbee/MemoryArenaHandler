@@ -1,0 +1,11 @@
+.build_only_docs
+.cache
+.vscode
+build/
+compile_commands.json
+docs/
+.zed
+kcov_output/
+coverage_build/
+.zig-out
+.zig-cache
