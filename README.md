@@ -53,16 +53,15 @@ and a x86_64 Windows library will be compiled from any host.
 
 The same can be said of MacOS targets, other Linux targets with different architectures or glibc versions, and other Windows targets.
 
-
-#### Note for mobile targets
-
-iOS and Android can be targeted as well (and I'm assuming WASM although I haven't tried), but the mobile targets need additional resources (iPhone SDK for iOS and NDK for the needed Android version) for this to work. This hasn't been tested for this library.
-
 Zig must be installed (see the zig link above) for this capability.
 
 Once zig is installed, `zig targets` can be run to see a list of all the support targets/architectures.
 
 The result of this list is large, so grep (or any equivalent) is recommended for desired targets.
+
+#### Note for mobile targets
+
+iOS and Android can be targeted as well (and I'm assuming WASM although I haven't tried), but the mobile targets need additional resources (iPhone SDK for iOS and NDK for the needed Android version) for this to work. This hasn't been tested for this library.
 
 
 #### Note for cross compilation
