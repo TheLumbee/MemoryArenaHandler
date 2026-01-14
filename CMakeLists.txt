@@ -58,3 +58,19 @@ add_library(memory_arena_handler_static STATIC
 add_library(memory_arena_handler_shared SHARED
 	"src/memory_arena_handler.cpp"
 )
+
+add_library(c_memory_arena_handler_static STATIC
+	"c_export/memory_arena_handler.cpp"
+)
+
+target_link_libraries(c_memory_arena_handler_static
+	memory_arena_handler
+)
+
+add_library(c_memory_arena_handler_shared SHARED
+	"c_export/memory_arena_handler.cpp"
+)
+
+target_link_libraries(c_memory_arena_handler_static
+	memory_arena_handler
+)
